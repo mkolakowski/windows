@@ -8,6 +8,19 @@
 
 <#
 .Source
+    Credit to John O'Neill Sr https://www.checkyourlogs.net/set-time-zone-using-powershell-powershell-mvphour/
+.SYNOPSIS
+    Sets Timezone to Eastern Standard Time
+.EXAMPLE
+    Set-TimeZone-EST
+        Run this command in powershell and the timezone will be set to EST
+#>
+function Set-TimeZone-EST {
+    Set-Timezone -Id "Eastern Standard Time"
+}
+
+<#
+.Source
     Credit to Maruo Huc https://pureinfotech.com/enable-remote-desktop-powershell-windows-10/
 .SYNOPSIS
     Enables Remote Desktop Protocal (RDP) and enables firewall rules on Windows Server 2019
