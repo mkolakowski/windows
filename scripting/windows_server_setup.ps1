@@ -65,5 +65,8 @@ function Disable-IEESC {
     Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -ForegroundColor Green
 }
 
+
+#Basic Setup for Windows Server 2019
 Disable-IEESC
 Enable-RDP
+Set-TimeZone-EST
