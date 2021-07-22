@@ -11,9 +11,12 @@ set "fullstamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%"
 set "winIntegrityCheckLog=C:\Logs\Windows-Integrity-Check-%fullstamp%.txt"
 
 rem Creating Log folder
-mkdir C:\Logs\ >> %winIntegrityCheckLog% 2>&1
+mkdir C:\Logs\
 
-echo  %fullstamp% - Script ran by %USERNAME% >> %winIntegrityCheckLog% 2>&1
+echo Read log file here: %winIntegrityCheckLog%
+echo This Process can take quite a bit of time
+
+echo %fullstamp% - Script ran by %USERNAME% >> %winIntegrityCheckLog% 2>&1
 
 set "YY=%dt:~2,2%" & set "YYYY=%dt:~0,4%" & set "MM=%dt:~4,2%" & set "DD=%dt:~6,2%"
 set "HH=%dt:~8,2%" & set "Min=%dt:~10,2%" & set "Sec=%dt:~12,2%"
@@ -41,9 +44,6 @@ for /f "tokens=2 delims==" %%a in ('wmic OS Get localdatetime /value') do set "d
 set "YY=%dt:~2,2%" & set "YYYY=%dt:~0,4%" & set "MM=%dt:~4,2%" & set "DD=%dt:~6,2%"
 set "HH=%dt:~8,2%" & set "Min=%dt:~10,2%" & set "Sec=%dt:~12,2%"
 set "fullstamp=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%"
-echo %HH%-%Min%-%Sec% - Script Complete  >> %winIntegrityCheckLog% 2>&1
-
-
-echo Read log file here: %winIntegrityCheckLog%
+echo %fullstamp% - Script Complete  >> %winIntegrityCheckLog% 2>&1
 
 pause
