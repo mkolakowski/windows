@@ -1,4 +1,7 @@
 echo off
+rem This script has been created\curated by Matthew Kolakowski (m@kolakowski.us)
+rem This script does not have any warranty and must be ran with extreem caution
+rem Ensure all data is backed up as there is no gaurentee that you will not loose data when running this script
 
 echo Run me as elevated
 
