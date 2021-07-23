@@ -65,6 +65,32 @@ function Disable-IEESC {
     Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -ForegroundColor Green
 }
 
+<#
+.Source
+.SYNOPSIS
+.EXAMPLE
+    Install-Server-Role
+#>
+function Install-Terminal-Server-Roles {
+    Install-WindowsFeature FileAndStorage-Services
+    File-Services
+    FS-Resource-Manager
+    FS-FileServer 
+    Storage-Services
+    RDS-Connection-Broker
+    RDS-Licensing
+    RDS-RD-Server
+    NET-Framework-Core 
+    RSAT
+    RSAT-Feature-Tools 
+    RSAT-RDS-Tools
+    RSAT-File-Services
+    RSAT-DFS-Mgmt-Con
+    Windows-Defender
+    Windows-Defender-Gui
+    PowerShellRoot
+    Search-Service
+}
 
 #Basic Setup for Windows Server 2019
 Disable-IEESC
