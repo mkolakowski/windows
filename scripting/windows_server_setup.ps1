@@ -6,6 +6,19 @@
 #>
 
 
+#GLOBAL - VARIABLES
+$date              = (get-date).toString("yyyy-MM-dd hh-mm-ss tt")
+$Logpath           = "C:\Logs"
+
+#Creates Log Folder
+if (!$Logpath) { mkdir $Logpath }
+
+
+
+
+#GLOBAL - VARIABLES
+
+
 <#
 .Source
     Credit to John O'Neill Sr https://www.checkyourlogs.net/set-time-zone-using-powershell-powershell-mvphour/
@@ -65,8 +78,6 @@ function Disable-IEESC {
     Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -ForegroundColor Green
 }
 
-
-
 <#
 .Source
     https://wiki.chotaire.net/windows-server-2019-remove-unused-features
@@ -76,15 +87,23 @@ function Disable-IEESC {
     Remove-Unused-Server-Roles
 #>
 function Remove-Unused-Server-Roles {
-Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Out-File  -FilePath C:\Logs\Log-Unused-Roles.txt
-Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Uninstall-WindowsFeature -Remove -LogPath C:\Logs\Remove-Unused-Server-Roles-1.txt
+        #Creates Logfile
+    $LogpathUnusedRoles      = $Logpath + '\' + $date + ' - RemoveUnusedRoles.txt'
+        #Log roles to be removed
+    Write-Host "---------- Listing Roles to Be removed" | Out-File -Append -FilePath $LogpathUnusedRoles
+    Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Out-File -Append -FilePath $LogpathUnusedRoles
 
-    # will remove windows update files from the past 30 days (does not undo-updates)
-Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase
+        # Remove Roles
+    Write-Host "---------- Removing Roles" | Out-File -Append -FilePath $LogpathUnusedRoles
+    Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Uninstall-WindowsFeature -Remove | Out-File -Append -FilePath $LogpathUnusedRoles
 
+        # will remove windows update files from the past 30 days (does not undo-updates)
+    Write-Host "---------- Running DISM to clean up role updates" | Out-File -Append -FilePath $LogpathUnusedRoles
+    Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase | Out-File -Append -FilePath $LogpathUnusedRoles
+        #Log roles to be removed
+    Write-Host "---------- Pre-printing roles to ensure removal" | Out-File -Append -FilePath $LogpathUnusedRoles
+    Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Out-File -Append -FilePath $LogpathUnusedRoles
 }
-
-
 
 <#
 .Source
@@ -114,6 +133,8 @@ function Install-Terminal-Server-Roles {
 }
 
 #Basic Setup for Windows Server 2019
-Disable-IEESC
-Enable-RDP
-Set-TimeZone-EST
+#Disable-IEESC
+#Enable-RDP
+#Set-TimeZone-EST
+
+Remove-Unused-Server-Roles
