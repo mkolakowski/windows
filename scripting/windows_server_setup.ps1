@@ -65,6 +65,27 @@ function Disable-IEESC {
     Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -ForegroundColor Green
 }
 
+
+
+<#
+.Source
+    https://wiki.chotaire.net/windows-server-2019-remove-unused-features
+.SYNOPSIS
+    Used to remove/uninstall any roles and features that are not in use
+.EXAMPLE
+    Remove-Unused-Server-Roles
+#>
+function Remove-Unused-Server-Roles {
+Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Out-File  -FilePath C:\Logs\Log-Unused-Roles.txt
+Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Uninstall-WindowsFeature -Remove -LogPath C:\Logs\Remove-Unused-Server-Roles-1.txt
+
+    # will remove windows update files from the past 30 days (does not undo-updates)
+Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase
+
+}
+
+
+
 <#
 .Source
 .SYNOPSIS
