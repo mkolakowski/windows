@@ -8,15 +8,13 @@
 
 #GLOBAL - VARIABLES
 $date              = (get-date).toString("yyyy-MM-dd hh-mm-ss tt")
+$CurrentDate       = (get-date).toString("yyyy-MM-dd hh-mm-ss tt")
 $Logpath           = "C:\Logs"
 
 #Creates Log Folder
 if (!$Logpath) { mkdir $Logpath }
 
 
-
-
-#GLOBAL - VARIABLES
 
 
 <#
@@ -87,21 +85,27 @@ function Disable-IEESC {
     Remove-Unused-Server-Roles
 #>
 function Remove-Unused-Server-Roles {
-        #Creates Logfile
-    $LogpathUnusedRoles      = $Logpath + '\' + $date + ' - RemoveUnusedRoles.txt'
+        
+    $LogpathUnusedRoles = $Logpath + '\' + $date + ' - RemoveUnusedRoles.txt' #Creates Logfile
         #Log roles to be removed
-    Write-Host "---------- Listing Roles to Be removed" | Out-File -Append -FilePath $LogpathUnusedRoles
+    $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
+    $appendToLog = "---------- Listing Roles to Be removed" 
+    $CurrentDate + $appendToLog | Out-File -Append -FilePath $LogpathUnusedRoles
     Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Out-File -Append -FilePath $LogpathUnusedRoles
-
         # Remove Roles
-    Write-Host "---------- Removing Roles" | Out-File -Append -FilePath $LogpathUnusedRoles
+    $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
+    $appendToLog = "---------- Removing Roles" 
+    $CurrentDate + $appendToLog | Out-File -Append -FilePath $LogpathUnusedRoles
     Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Uninstall-WindowsFeature -Remove | Out-File -Append -FilePath $LogpathUnusedRoles
-
         # will remove windows update files from the past 30 days (does not undo-updates)
-    Write-Host "---------- Running DISM to clean up role updates" | Out-File -Append -FilePath $LogpathUnusedRoles
+    $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
+    $appendToLog = "---------- Running DISM to clean up role updates" 
+    $CurrentDate + $appendToLog | Out-File -Append -FilePath $LogpathUnusedRoles
     Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase | Out-File -Append -FilePath $LogpathUnusedRoles
         #Log roles to be removed
-    Write-Host "---------- Pre-printing roles to ensure removal" | Out-File -Append -FilePath $LogpathUnusedRoles
+    $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
+    $appendToLog = "---------- Pre-printing roles to ensure removal" 
+    $CurrentDate + $appendToLog | Out-File -Append -FilePath $LogpathUnusedRoles
     Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Out-File -Append -FilePath $LogpathUnusedRoles
 }
 
