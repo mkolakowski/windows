@@ -1,6 +1,6 @@
 <#
 #>
-
+ 
 #Import Modules
 Import-Module ActiveDirectory 
 
@@ -25,7 +25,7 @@ Import-Module ActiveDirectory
 .EXAMPLE
     Generate_Sample_CSV
 #>
-function Generate_Sample_CSV {
+function Generate_Sample_CSV_Users {
         #Variable Generation
 
     Add-Content -Path $CSV_Path -Value $CSV_Group_Headers
