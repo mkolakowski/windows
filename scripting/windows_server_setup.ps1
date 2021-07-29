@@ -98,10 +98,10 @@ function Remove-Unused-Server-Roles {
     $CurrentDate + $appendToLog | Out-File -Append -FilePath $LogpathUnusedRoles
     Get-WindowsFeature | Where-Object {$_.Installed -match "False"} | Uninstall-WindowsFeature -Remove | Out-File -Append -FilePath $LogpathUnusedRoles
         # will remove windows update files from the past 30 days (does not undo-updates)
-    $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
-    $appendToLog = "---------- Running DISM to clean up role updates" 
-    $CurrentDate + $appendToLog | Out-File -Append -FilePath $LogpathUnusedRoles
-    Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase | Out-File -Append -FilePath $LogpathUnusedRoles
+#    $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
+#    $appendToLog = "---------- Running DISM to clean up role updates" 
+#    $CurrentDate + $appendToLog | Out-File -Append -FilePath $LogpathUnusedRoles
+#    Dism.exe /online /Cleanup-Image /StartComponentCleanup /ResetBase | Out-File -Append -FilePath $LogpathUnusedRoles
         #Log roles to be removed
     $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
     $appendToLog = "---------- Pre-printing roles to ensure removal" 

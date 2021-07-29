@@ -3,8 +3,8 @@
 
 #Application paremeters
     param (
-        [string] $PathToImportCSV = $null,
-        [string] $mode = $null # Can be set to single or multi
+        [string] $PathToImportCSV,
+        [string] $mode # Can be set to single or multi
         )
 
 
@@ -51,23 +51,27 @@ function Generate_Sample_CSV_Users {
     Bulk_Add_Users
 #>
 function Bulk_Add_Users {
-    Import-Csv -Path $PathToImportCSV | ForEach-Object {Add-ADGroupMember -Identity $GroupToAddUsers -Members $_.$CSVColumnUsers}
+    Import-Csv -Path $PathToImportCSV | ForEach-Object 
+    {
+        Add-ADGroupMember -Identity $GroupToAddUsers -Members $_.$CSVColumnUsers
+    }
 }
-
 <#
-.Source
-    Modified version of source on https://www.petenetlive.com/KB/Article/0001475
-.ORGINAL
-    Import-Csv -Path “C:\Temp\Users-To-Add.csv” | ForEach-Object {Add-ADGroupMember -Identity “Group-Name” -Members $_.’User-Name’}
 .SYNOPSIS
-    Pulls list of users from CSV and adds them to group
+    Pulls data from each CSV file in the $PathToImportCSV folder and 
+    used the first cell as the group name then adds each user to the group
 .EXAMPLE
     Bulk_Add_Users
 #>
 function Bulk_Add_Multi_Groups {
 
-    Get-ChildItem –Path $PathToImportCSV | Foreach-Object {
-        Import-Csv -Path $_.FullName | ForEach-Object {Add-ADGroupMember -Identity $GroupToAddUsers -Members $_.$CSVColumnUsers}
+    #looks at folder
+    Get-ChildItem –Path $PathToImportCSV | Foreach-Object 
+    {
+        Import-Csv -Path $_.FullName | ForEach-Object 
+        {
+            Add-ADGroupMember -Identity $GroupToAddUsers -Members $_.$CSVColumnUsers
+        }
     }
 
 }
