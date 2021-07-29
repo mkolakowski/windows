@@ -15,12 +15,12 @@ Import-Module ActiveDirectory
     if (!$PathToImportCSV) { $PathToImportCSV = “C:\Temp\Users-To-Add.csv” }
 
 
-    $GroupToAddUsers    = “Group-Name”
-    $CSVColumnUsers     = ’User-Name’
+    $GroupToAddUsers    = “GroupNAME”
+    $CSVColumnUsers     = "User-Name"
     $CSV_Path           = "C:\Logs\Sample.csv"
     $CSV_Group_Headers  = '"Group01",'
     $CSV_Input          = @(
-                            '"Adam",'
+                            '"User-Name",'
                             '"Joe",'
                             '"Mary",'
                             )
