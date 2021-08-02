@@ -26,6 +26,10 @@
     Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 00000000
     Write-Host "User Access Control (UAC) has been disabled." -ForegroundColor Green    
 
-
-# Turn off Allow the computer to turn off this device to save power
-#	This must be done manually
+# Install Google Chrome
+	Write-Host "Installing Google Chrome." -ForegroundColor Green
+	$Path = $env:TEMP; 
+	$Installer = "chrome_installer.exe"
+	Invoke-WebRequest "http://dl.google.com/chrome/install/375.126/chrome_installer.exe" -OutFile $Path\$Installer
+	Start-Process -FilePath $Path\$Installer -Args "/silent /install" -Verb RunAs -Wait
+	Remove-Item $Path\$Installer
