@@ -1,8 +1,12 @@
 echo off
 rem This script has been created\curated by Matthew Kolakowski (m@kolakowski.us)
-rem This script does not have any warranty and must be ran with extreem caution
-rem Ensure all data is backed up as there is no gaurentee that you will not loose data when running this script
+rem https://github.com/mkolakowski
+echo This script does not have any warranty and must be ran with extreem caution, by continuing to run this you are acceptintg of the terms
+echo Ensure all data is backed up as there is no gaurentee that you will not loose data when running this script
+pause
 
+    call:generateTimestamp
+    echo %fullstamp%
     echo Run me as elevated
     set "winIntegrityCheckLog=C:\Logs\Windows-Integrity-Check-%fullstamp%.txt"
     rem Creating Log folder
@@ -51,7 +55,7 @@ rem Ensure all data is backed up as there is no gaurentee that you will not loos
 :: -------------------------------------------------------------------------------------------------------------------------------
     call:generateTimestamp
     echo %fullstamp% - Script Complete  >> %winIntegrityCheckLog% 2>&1
-
+    pause
 
 :: -------------------------------------------------------------------------------------------------------------------------------
 :generateTimestamp
