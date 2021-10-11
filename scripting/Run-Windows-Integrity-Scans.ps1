@@ -10,7 +10,7 @@ $CurrentDate = (get-date).toString("yyyy-MM-dd_hh-mm-ss") # Sets Current Date fo
 $winIntegrityCheckLog = "C:\Logs\Windows-Integrity-Check-$CurrentDate.txt"
 
 
-param([switch]$Elevated)
+#param([switch]$Elevated)
 
 function Generate-Current-Date {
     $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
@@ -32,7 +32,10 @@ if ((Test-Admin) -eq $false)  {
 }
 
 function Create-Log-File {
-    mkdir C:\Logs\
+    if (!C:\Logs\) {
+        mkdir C:\Logs\
+    }
+
     Write-Output "This script can take quite a bit of time"
     Write-Output "Read log file here: $winIntegrityCheckLog"
     Write-To-Log -appendToLog "Creating Log" 
@@ -40,6 +43,7 @@ function Create-Log-File {
 
 function Write-To-Log ($appendToLog) {
     Generate-Current-Date
+    Write-Output $CurrentDate + " ---------- " + $appendToLog
     $CurrentDate + " ---------- " + $appendToLog | Out-File -Append -FilePath $winIntegrityCheckLog
 }
 
