@@ -33,9 +33,8 @@ if ((Test-Admin) -eq $false)  {
 
 function Create-Log-File {
     mkdir C:\Logs\
-    echo Read log file here: %winIntegrityCheckLog%
-    echo This script can take quite a bit of time
-    echo Read log file here: $winIntegrityCheckLog
+    Write-Output "This script can take quite a bit of time"
+    Write-Output "Read log file here: $winIntegrityCheckLog"
     Write-To-Log -appendToLog "Creating Log" 
 }
 
@@ -71,7 +70,6 @@ function Run-DISM-Scans {
   Test-Admin
   Create-Log-File
   Copy-Delete-CBS-Log
-  Run-SFC-Scan
   Run-SFC-Scan
   Run-DISM-Scans
   Write-To-Log -appendToLog "Script Completed" 
