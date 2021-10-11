@@ -4,7 +4,6 @@ echo off
 # This script does not have any warranty and must be ran with extreem caution, by continuing to run this you are acceptintg of the terms
 # Ensure all data is backed up as there is no gaurentee that you will not loose data when running this script
 # Please ensure this script is ran as admin before contunuing
-pause
 
 $CurrentDate = (get-date).toString("yyyy-MM-dd_hh-mm-ss") # Sets Current Date for timestamping
 $winIntegrityCheckLog = "C:\Logs\Windows-Integrity-Check-$CurrentDate.txt"
