@@ -5,14 +5,14 @@ echo off
 # Ensure all data is backed up as there is no gaurentee that you will not loose data when running this script
 # Please ensure this script is ran as admin before contunuing
 
-$CurrentDate = (get-date).toString("yyyy-MM-dd_hh-mm-ss") # Sets Current Date for timestamping
-$winIntegrityCheckLog = "C:\Logs\Windows-Integrity-Check-$CurrentDate.txt"
+#$CurrentDate = (get-date).toString("yyyy-MM-dd_hh-mm-ss") # Sets Current Date for timestamping
+$winIntegrityCheckLog = "C:\Logs\Windows-Integrity-Check-$("yyyy-MM-dd_hh-mm-ss).txt"
 
 
 #param([switch]$Elevated)
 
 function Generate-Current-Date {
-    $CurrentDate = (get-date).toString("yyyy-MM-dd hh-mm-ss tt") # Sets Current Date for timestamping
+   # $CurrentDate = (get-date).toString("yyyy-MM-dd_hh-mm-ss") # Sets Current Date for timestamping
 }
 
 function Test-Admin {
@@ -42,8 +42,8 @@ function Create-Log-File {
 
 function Write-To-Log ($appendToLog) {
     Generate-Current-Date
-    Write-Output $CurrentDate + " ---------- " + $appendToLog
-    $CurrentDate + " ---------- " + $appendToLog | Out-File -Append -FilePath $winIntegrityCheckLog
+    Write-Output $("yyyy-MM-dd_hh-mm-ss) + " ---------- " + $appendToLog
+    $("yyyy-MM-dd_hh-mm-ss) + " ---------- " + $appendToLog | Out-File -Append -FilePath $winIntegrityCheckLog
 }
 
 function Copy-Delete-CBS-Log {
