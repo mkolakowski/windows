@@ -6,7 +6,7 @@ echo off
 # Please ensure this script is ran as admin before contunuing
 
 #$CurrentDate = (get-date).toString("yyyy-MM-dd_hh-mm-ss") # Sets Current Date for timestamping
-$winIntegrityCheckLog = "C:\Logs\Windows-Integrity-Check-$("yyyy-MM-dd_hh-mm-ss).txt"
+$winIntegrityCheckLog = "C:\Logs\Windows-Integrity-Check-$("yyyy-MM-dd_hh-mm-ss").txt"
 
 
 #param([switch]$Elevated)
@@ -42,8 +42,8 @@ function Create-Log-File {
 
 function Write-To-Log ($appendToLog) {
     Generate-Current-Date
-    Write-Output $("yyyy-MM-dd_hh-mm-ss) + " ---------- " + $appendToLog
-    $("yyyy-MM-dd_hh-mm-ss) + " ---------- " + $appendToLog | Out-File -Append -FilePath $winIntegrityCheckLog
+    Write-Output $("yyyy-MM-dd_hh-mm-ss") + " ---------- " + $appendToLog
+    $("yyyy-MM-dd_hh-mm-ss") + " ---------- " + $appendToLog | Out-File -Append -FilePath $winIntegrityCheckLog
 }
 
 function Copy-Delete-CBS-Log {
