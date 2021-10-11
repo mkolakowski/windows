@@ -43,8 +43,8 @@ function Create-Log-File {
 
 function Write-To-Log ($appendToLog) {
     Generate-Current-Date
-    Write-Output $CurrentDate + " ---------- " + $appendToLog
-    $CurrentDate + " ---------- " + $appendToLog | Out-File -Append -FilePath $winIntegrityCheckLog
+    Write-Output $CurrentDate " ---------- " $appendToLog
+    $CurrentDate " ---------- " $appendToLog | Out-File -Append -FilePath $winIntegrityCheckLog
 }
 
 function Copy-Delete-CBS-Log {
